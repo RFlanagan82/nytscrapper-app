@@ -15,7 +15,7 @@
             <div class="row" id="header">
                 <div class="jumbotron container-fluid">
                     <div class="container">
-                      <h1 class="display-4 ">NY Times Search</h1>
+                      <h1 class="display-4" id="headertext"> <strong>NY Times Search</strong></h1>
                     </div>
                   </div>
             </div>
@@ -26,16 +26,71 @@
                           Search Perameter
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title">Special title treatment</h5>
-                          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <form>
+                                <div class="form-group">
+                                  <label for="searchterm">Search Term:</label>
+                                  <input type="text" class="form-control" id="search-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="number-of-records">Example select</label>
+                                    <select class="form-control" id="records-input">
+                                      <option>5</option>
+                                      <option>4</option>
+                                      <option>3</option>
+                                      <option>2</option>
+                                      <option>1</option>
+                                    </select>
+                                  </div>
+                                <div class="form-group">
+                                  <label for="startYear">Start Year (Optional):</label>
+                                  <input type="text" class="form-control" id="start-year-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endYear">End Year (Optional):</label>
+                                    <input type="text" class="form-control" id="end-year-input">
+                                  </div>
+                              </form>
                           <a href="#" class="btn btn-primary">Search</a>
                           <a href="#" class="btn btn-primary">Clear Results</a>
                         </div>
                       </div>
                 </div>
             </div>
-            <div class="row" id = "top-articles"></div>
+            <br>
+            <div class="row" id = "top-articles">
+                <div class="col-sm-12">                <div class="card">
+                    <div class="card-header">
+                      Top Articles
+                    </div>
+                    <div class="card-body"></div>
+                  </div>
+            </div>
         </div>
-        <script src="text/javascript"></script>
+
+
+
+        <script type="text/javascript">
+        $(document).ready(function () {
+        var searchTitleButton = $("#search-button");
+        var clearResultsButton = $("#clear-button");
+        searchTitleButton.on("click", function () {
+        var searchInputEl = $("#search-input").val();
+        var recordsInputEl = $("#records-input").val();
+        var startYearInputEl = $("#start-year-input").val();
+        var endYearInputEl = $("#end-year-input").val();
+        var parameters = "";
+        var apiKey = "bca34e49-96d5-4391-aabd-a456ac3eedec";
+        var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json" + parameters + apiKey;
+        $.ajax({
+            url: queryURL,
+            method: "GET",
+        })
+        .then(function (response) {
+            console.log(response.response.docs[0]);
+        });
+    });
+});
+        
+        </script>
     </body>
 </html>
